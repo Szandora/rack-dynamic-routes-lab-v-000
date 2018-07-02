@@ -7,13 +7,18 @@ class Application
 
     if req.path.match(/items/)
       item_search = req.path.split("/items/").last
-      item = @@items.find{|i| i.item == item_search}
 
-      resp.write item
+    if  item = @@items.find{|i| i.item == item_search}
+      resp.write item.price
     else
-      resp.write "Route not found"
-      resp.status = 404
+      resp.write "Item not found"
+      resp.status = 400
     end
-    resp.finish
+
+  else
+    resp.write "Route not found"
+    resp.status = 404
+  end
+  resp.finish
   end
 end
