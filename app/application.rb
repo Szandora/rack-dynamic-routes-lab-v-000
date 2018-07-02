@@ -10,6 +10,9 @@ class Application
       item = @@items.find{|i| i.item == item_search}
 
       resp.write item
+    else 
+      resp.write "Route not found"
+      resp.status = 404
     end
     resp.finish
   end
